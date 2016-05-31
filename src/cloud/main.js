@@ -7,7 +7,7 @@
  */
 
 import express from 'express';
-import graphqlHTTP from 'express-graphql';
+import { apolloServer } from 'apollo-server';
 import swapiSchema from '../schema';
 
 
@@ -16,10 +16,10 @@ const app = express();
 // Requests to /graphql redirect to /
 app.all('/graphql', (req, res) => res.redirect('/'));
 
-app.use('/', graphqlHTTP(() => ({
+app.use('/', apolloServer({
   schema: swapiSchema,
   graphiql: true
-})));
+}));
 
 // Listen for incoming HTTP requests
 const listener = app.listen(() => {
