@@ -18,7 +18,7 @@
 export async function getFromRemoteUrl(url) {
   try {
     var text = null;
-    if (Parse.Cloud.httpRequest !== undefined) {
+    if (typeof Parse !== 'undefined' && Parse.Cloud.httpRequest !== undefined) {
       text = await getTextFromParse(url);
     } else {
       text = await getTextFromFetch(url);

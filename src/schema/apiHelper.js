@@ -10,12 +10,16 @@
 import DataLoader from 'dataloader';
 
 import {
-  getFromLocalUrl
+  getFromLocalUrl,
+  getFromRemoteUrl
 } from '../api';
 
-var localUrlLoader = new DataLoader(
-  urls => Promise.all(urls.map(getFromLocalUrl))
-);
+var urlLoader;
+if (process.env.NODE_ENV === 'production') {
+  urlLoader = new DataLoader(urls => Promise.all(urls.map(getFromRemoteUrl)));
+} else {
+  urlLoader = new DataLoader(urls => Promise.all(urls.map(getFromLocalUrl)));
+}
 
 /**
  * Objects returned from SWAPI don't have an ID field, so add one.
@@ -29,7 +33,7 @@ function objectWithId(obj: Object): Object {
  * Given an object URL, fetch it, append the ID to it, and return it.
  */
 export async function getObjectFromUrl(url: string): Promise<Object> {
-  var dataString = await localUrlLoader.load(url);
+  var dataString = await urlLoader.load(url);
   var data = JSON.parse(dataString);
   return objectWithId(data);
 }
@@ -71,7 +75,7 @@ export async function getObjectsByType(
   var totalCount = 0;
   var nextUrl = `http://swapi.co/api/${type}/`;
   while (nextUrl && !doneFetching(objects, args)) {
-    var pageData = await localUrlLoader.load(nextUrl);
+    var pageData = await urlLoader.load(nextUrl);
     var parsedPageData = JSON.parse(pageData);
     totalCount = parsedPageData.count;
     objects = objects.concat(parsedPageData.results.map(objectWithId));

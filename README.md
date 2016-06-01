@@ -39,6 +39,13 @@ npm start
 A GraphiQL instance will be opened at http://localhost:8080/ to
 explore the API.
 
+## Local Server that Hits swapi.co
+
+Run a local server that hits swapi.co without using the cachedData
+```sh
+NODE_ENV=production npm start
+```
+
 ## Parse Server
 
 A parse server is in `./parse`. After adding a `parse/src/config/global.json`
