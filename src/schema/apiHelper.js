@@ -14,6 +14,8 @@ import {
   getFromRemoteUrl
 } from '../api';
 
+var rootURI = process.env.API_HOST ? `${process.env.API_HOST}/api/` : 'http://swapi:8080/api/'
+
 var urlLoader;
 if (process.env.NODE_ENV === 'production') {
   urlLoader = new DataLoader(urls => Promise.all(urls.map(getFromRemoteUrl)));
@@ -45,7 +47,7 @@ export async function getObjectFromTypeAndId(
   type: string,
   id: string
 ): Promise<Object> {
-  return await getObjectFromUrl(`http://swapi.co/api/${type}/${id}/`);
+  return await getObjectFromUrl(`${rootURI}${type}/${id}/`);
 }
 
 /**
@@ -73,7 +75,7 @@ export async function getObjectsByType(
 ): Promise<ObjectsByType> {
   var objects = [];
   var totalCount = 0;
-  var nextUrl = `http://swapi.co/api/${type}/`;
+  var nextUrl = `${rootURI}${type}/`;
   while (nextUrl && !doneFetching(objects, args)) {
     var pageData = await urlLoader.load(nextUrl);
     var parsedPageData = JSON.parse(pageData);

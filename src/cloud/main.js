@@ -12,6 +12,7 @@ import swapiSchema from '../schema';
 
 
 const app = express();
+const port = process.env.NODE_PORT || 3000;
 
 // Requests to /graphql redirect to /
 app.all('/graphql', (req, res) => res.redirect('/'));
@@ -22,11 +23,12 @@ app.use('/', apolloServer({
 }));
 
 // Listen for incoming HTTP requests
-const listener = app.listen(() => {
+const listener = app.listen(port, () => {
   var host = listener.address().address;
   if (host === '::') {
     host = 'localhost';
   }
   var port = listener.address().port;
   console.log('Listening at http://%s%s', host, port === 80 ? '' : ':' + port);
+  console.log(process.env.API_HOST ? `${process.env.API_HOST}/api/` : 'http://swapi.co/api/')
 });

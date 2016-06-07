@@ -1,0 +1,14 @@
+api:
+  image: swapi:latest
+  ports:
+    - "8080:8080"
+graphql:
+  image: graphql-swapi:latest
+  ports:
+    - "3000:3000"
+  links:
+    - api:swapi
+  environment:
+    - NODE_PORT=3000
+    - NODE_ENV=production
+    - API_HOST=http://swapi:8080

@@ -49,6 +49,8 @@
   },
   "dependencies": {
     "apollo-server": "^0.1.2",
+    "babel": "^5.8.3",
+    "babel-polyfill": "^6.9.1",
     "babel-runtime": "5.8.34",
     "dataloader": "1.1.0",
     "express": "4.13.4",
@@ -59,7 +61,6 @@
     "react": "0.14.7"
   },
   "devDependencies": {
-    "babel": "^5.8.3",
     "babel-core": "^5.8.3",
     "babel-eslint": "^4.0.5",
     "babelify": "^6.1.1",
