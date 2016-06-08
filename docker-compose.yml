@@ -3,7 +3,7 @@ api:
   ports:
     - "8080:8080"
 graphql:
-  image: graphql-swapi:latest
+  image: swapi-graphql:latest
   ports:
     - "3000:3000"
   links:

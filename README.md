@@ -48,7 +48,7 @@ NODE_ENV=production npm start
 
 ## Parse Server
 
-A parse server is in `./parse`. After adding a `parse/src/config/global.json`
+A parse server is in `./parse`. After adding a `src/config/global.json`
 file, it can be deployed with:
 
 ```sh
@@ -56,3 +56,30 @@ npm run deploy
 ```
 
 A sample deploy is at http://graphql-swapi.parseapp.com/
+
+## Docker Deployment
+
+There is a docker config for this project that can be enabled with:
+
+```sh
+docker build -t swapi-graphql .
+```
+
+## Complete Test Configuration
+
+You can run this docker configuration in conjunction with a SWAPI server to run a self contained test configuration.  To do this:
+
+* Build the swapi server
+
+```sh
+git clone ssh://git@stash.corp.creditkarma.com:7999/fett/swapi-docker.git
+cd swapi-docker
+docker build -t swapi .
+```
+
+* Run both docker containers linked together
+
+```sh
+cd swapi-graphql
+docker-compose up
+```
