@@ -15,13 +15,10 @@ import {
 } from '../api';
 
 var rootURI = process.env.API_HOST ? `${process.env.API_HOST}/api/` : 'http://swapi:8080/api/'
+var cacheEnabled = process.env.API_CACHE ? process.env.API_CACHE !== 'false' : true;
+var fromFunc = process.env.NODE_ENV === 'production' ? getFromRemoteUrl : getFromLocalUrl;
 
-var urlLoader;
-if (process.env.NODE_ENV === 'production') {
-  urlLoader = new DataLoader(urls => Promise.all(urls.map(getFromRemoteUrl)));
-} else {
-  urlLoader = new DataLoader(urls => Promise.all(urls.map(getFromLocalUrl)));
-}
+var urlLoader = new DataLoader(urls => Promise.all(urls.map(fromFunc)), {cache: cacheEnabled});
 
 /**
  * Objects returned from SWAPI don't have an ID field, so add one.

@@ -11,4 +11,5 @@ graphql:
   environment:
     - NODE_PORT=3000
     - NODE_ENV=production
+    - API_CACHE=false
     - API_HOST=http://swapi:8080
