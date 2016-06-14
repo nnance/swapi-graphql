@@ -14,7 +14,7 @@ import {
   getFromRemoteUrl
 } from '../api';
 
-var rootURI = process.env.API_HOST ? `${process.env.API_HOST}/api/` : 'http://swapi:8080/api/'
+var rootURI = process.env.API_HOST ? `${process.env.API_HOST}/api/` : 'http://swapi:8080/api/';
 var cacheEnabled = process.env.API_CACHE ? process.env.API_CACHE !== 'false' : true;
 var fromFunc = process.env.NODE_ENV === 'production' ? getFromRemoteUrl : getFromLocalUrl;
 
