@@ -12,17 +12,24 @@ import swapiSchema from '../schema';
 import { Tracer } from 'apollo-tracer';
 
 
-const app = express();
 const port = process.env.NODE_PORT || 3000;
+const tracerProxy = process.env.TRACER_PROXY || null;
+const tracerEnabled = process.env.TRACER_ENABLED || false;
+
+const app = express();
 
 // Requests to /graphql redirect to /
 app.all('/graphql', (req, res) => res.redirect('/'));
 
-const tracer = new Tracer({TRACER_APP_KEY: '16791A56-43B3-4738-9B36-680122AC1526'});
+const tracer = new Tracer({
+  TRACER_APP_KEY: '16791A56-43B3-4738-9B36-680122AC1526',
+  proxy: tracerProxy,
+});
+
 app.use('/', apolloServer({
   schema: swapiSchema,
   graphiql: true,
-  tracer: process.env.NODE_ENV === 'production' ? tracer : null
+  tracer: tracerEnabled ? tracer : null
 }));
 
 // Listen for incoming HTTP requests
