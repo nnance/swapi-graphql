@@ -1,9 +1,11 @@
 api:
   image: swapi:latest
+  container_name: swapi
   ports:
     - "8080:8080"
 graphql:
   image: swapi-graphql:latest
+  container_name: graphql
   ports:
     - "3000:3000"
   links:
