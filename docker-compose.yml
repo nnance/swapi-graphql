@@ -2,7 +2,7 @@ api:
   image: swapi:latest
   container_name: swapi
   ports:
-    - "8080:8080"
+    - "8080:80"
 graphql:
   image: swapi-graphql:latest
   container_name: graphql
@@ -15,4 +15,4 @@ graphql:
     - NODE_ENV=production
     - TRACER_ENABLED=true
     - API_CACHE=false
-    - API_HOST=http://swapi:8080
+    - API_HOST=http://swapi

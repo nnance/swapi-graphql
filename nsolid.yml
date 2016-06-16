@@ -27,7 +27,7 @@ api:
   container_name: swapi
   net: "nsolid"
   ports:
-    - "8080:8080"
+    - "8080:80"
 graphql:
   image: swapi-graphql:latest
   container_name: graphql
@@ -43,4 +43,4 @@ graphql:
     - NODE_PORT=3010
     - NODE_ENV=production
     - API_CACHE=false
-    - API_HOST=http://swapi:8080
+    - API_HOST=http://swapi

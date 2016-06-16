@@ -1,10 +1,10 @@
 api:
-  image: swapi:latest
+  image: registry.corp.creditkarma.com/sand/sherly-swapi:latest
   container_name: swapi
   ports:
-    - "8080:8080"
+    - "8080:80"
 graphql:
-  image: swapi-graphql:latest
+  image: registry.corp.creditkarma.com/sand/sherly-graphql-server:latest
   container_name: graphql
   ports:
     - "3000:3000"
@@ -16,4 +16,4 @@ graphql:
     - TRACER_ENABLED=true
     - TRACER_PROXY=http://scproxy.corp.creditkarma.com:3128/
     - API_CACHE=false
-    - API_HOST=http://swapi:8080
+    - API_HOST=http://swapi
